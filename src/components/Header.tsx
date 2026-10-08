@@ -16,7 +16,7 @@ export default function Header() {
 
     return (
         <header className="sticky top-0 z-20 border-b border-gray-200 bg-white shadow-sm">
-            <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+            <div className="flex w-full items-center justify-between py-3 pl-4 pr-6">
                 <Link
                     href="/"
                     className="flex items-center rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
@@ -24,9 +24,9 @@ export default function Header() {
                     <Image
                         src="/images/logo.png"
                         alt="Precision Acoustics home"
-                        width={150}
-                        height={110}
-                        className="h-12 w-auto"
+                        width={200}
+                        height={147}
+                        className="h-16 w-auto"
                         priority
                     />
                 </Link>
