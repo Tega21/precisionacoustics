@@ -1,10 +1,13 @@
 import type { MetadataRoute } from "next";
 
-const baseUrl = "new url";
+const baseUrl = "https://precisionacousticsaz.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    return ["", "/portfolio", "/about", "/contact"].map((path) => ({
-        url: `${baseUrl}${path}`,
+    const routes = ["", "/portfolio", "/about", "/contact", "/privacy"];
+    return routes.map((route) => ({
+        url: `${baseUrl}${route}`,
         lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: route === "" ? 1 : 0.8,
     }));
 }
