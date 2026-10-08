@@ -11,6 +11,7 @@ const schema = z.object({
     phone: z.string().max(40).optional(),
     message: z.string().min(1, "Message is required").max(5000),
     website: z.string().max(0).optional(), // honeypot — must be empty
+    turnstileToken: z.string().min(1, "Please complete the captcha.")
 });
 
 export async function POST(request: Request) {
@@ -34,6 +35,23 @@ export async function POST(request: Request) {
         return NextResponse.json({ ok: true });
     }
 
+    // Verify the Turnstile token with Cloudflare
+    const captcha = await fetch(
+        "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+        {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams({
+                secret: process.env.TURNSTILE_SECRET_KEY!,
+                response: parsed.data.turnstileToken,
+            }),
+        }
+    );
+    const captchaResult = await captcha.json();
+    if (!captchaResult.success) {
+        return NextResponse.json({ error: "Captcha verification failed." }, { status: 400 });
+    }
+
     const apiKey = process.env.RESEND_API_KEY;
     if (!apiKey) {
         console.error("RESEND_API_KEY is not set");
@@ -48,7 +66,7 @@ export async function POST(request: Request) {
             from: "Precision Acoustics <onboarding@resend.dev>",
             to: process.env.CONTACT_TO_EMAIL!,
             replyTo: email,
-            subject: `New inquiry from ${name} from ${company}`,
+            subject: `New inquiry from ${name}${company ? ` (${company})` : ""}`,
             text:
                 `Name: ${name}\n` +
                 `Email: ${email}\n` +

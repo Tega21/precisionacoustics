@@ -12,26 +12,31 @@ const projects = [
         src: "/images/baffles.jpg",
         title: "Acoustic Baffle Ceiling",
         description: "Suspended felt baffles with integrated track lighting.",
+        alt: "Rows of suspended felt acoustic baffles with track lighting below",
     },
     {
         src: "/images/feltceiling1.jpg",
         title: "Felt Ceiling System",
         description: "Custom acoustic felt ceiling for a commercial space.",
+        alt: "Custom felt acoustic ceiling panels in a commercial interior",
     },
     {
         src: "/images/feltceiling2.jpg",
         title: "Specialty Felt Ceiling",
         description: "Acoustic treatment and finish work.",
+        alt: "Specialty felt ceiling treatment with finished edges",
     },
     {
         src: "/images/labodega.jpeg",
         title: "La Bodega",
         description: "Commercial ceiling installation.",
+        alt: "Finished acoustical ceiling installation at La Bodega",
     },
     {
         src: "/images/desertfinancial.jpeg",
         title: "Desert Financial",
         description: "Acoustical ceiling for an office build-out.",
+        alt: "Acoustical ceiling in a Desert Financial office build-out",
     },
 ];
 
@@ -52,7 +57,7 @@ export default function Portfolio() {
                     >
                         <Image
                             src={project.src}
-                            alt={project.title}
+                            alt={project.alt}
                             width={600}
                             height={450}
                             className="h-60 w-full object-cover"

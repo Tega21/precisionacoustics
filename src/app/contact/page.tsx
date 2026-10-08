@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 export default function Contact() {
     const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
     const [error, setError] = useState("");
+    const [token, setToken] = useState("");
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -18,7 +20,7 @@ export default function Contact() {
             const res = await fetch("/api/contact", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
+                body: JSON.stringify({ ...data, turnstileToken: token }),
             });
             if (!res.ok) {
                 const b = await res.json().catch(() => ({}));
@@ -33,7 +35,7 @@ export default function Contact() {
     }
 
     const field =
-        "mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[#22309a] focus:outline-none focus:ring-1 focus:ring-[#22309a]";
+        "mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand";
 
     return (
         <div className="mx-auto max-w-5xl px-6 py-16">
@@ -46,7 +48,9 @@ export default function Contact() {
                 {/* Form */}
                 <div>
                     {status === "success" ? (
-                        <div className="rounded-lg border border-green-200 bg-green-50 p-6 text-green-800">
+                        <div
+                            role="status"
+                            className="rounded-lg border border-green-200 bg-green-50 p-6 text-green-800">
                             Thanks! Your message has been sent. We&apos;ll be in touch soon.
                         </div>
                     ) : (
@@ -56,7 +60,9 @@ export default function Contact() {
                                    className="hidden" aria-hidden="true" />
 
                             <div>
-                                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
+                                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name
+                                    <span className="text-red-600" aria-hidden="true">*</span>
+                                </label>
                                 <input id="name" name="name" required className={field} />
                             </div>
                             <div>
@@ -64,7 +70,9 @@ export default function Contact() {
                                 <input id="company" name="company" className={field} />
                             </div>
                             <div>
-                                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email
+                                    <span className="text-red-600" aria-hidden="true">*</span>
+                                </label>
                                 <input id="email" name="email" type="email" required className={field} />
                             </div>
                             <div>
@@ -72,14 +80,22 @@ export default function Contact() {
                                 <input id="phone" name="phone" type="tel" className={field} />
                             </div>
                             <div>
-                                <label htmlFor="message" className="block text-sm font-medium text-gray-700">Project Details</label>
+                                <label htmlFor="message" className="block text-sm font-medium text-gray-700">Project Details
+                                    <span className="text-red-600" aria-hidden="true">*</span>
+                                </label>
                                 <textarea id="message" name="message" rows={5} required className={field} />
                             </div>
 
-                            {status === "error" && <p className="text-sm text-red-600">{error}</p>}
+                            {status === "error" && (
+                                <p role={'alert'} className="text-sm text-red-600">{error}</p>)}
 
-                            <button type="submit" disabled={status === "sending"}
-                                    className="rounded-md bg-[#22309a] px-6 py-3 font-semibold text-white transition hover:bg-[#1a2570] disabled:opacity-60">
+                            <Turnstile
+                                siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                                onSuccess={(t) => setToken(t)}
+                            />
+
+                            <button type="submit" disabled={status === "sending" || !token}
+                                    className="rounded-md bg-brand px-6 py-3 font-semibold text-white transition hover:bg-brand-dark disabled:opacity-60">
                                 {status === "sending" ? "Sending..." : "Send Message"}
                             </button>
                         </form>

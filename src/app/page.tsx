@@ -5,30 +5,7 @@ import HeroSlider from "@/components/HeroSlider";
 export default function Home() {
   return (
       <div>
-        {/*/!* Hero *!/*/}
-        {/*<section className="bg-[#16213f] text-white">*/}
-        {/*  <div className="mx-auto max-w-4xl px-6 py-28 text-center">*/}
-        {/*    <p className="text-sm font-semibold uppercase tracking-widest text-blue-300">*/}
-        {/*      Commercial Acoustical Ceiling Specialists*/}
-        {/*    </p>*/}
-        {/*    <h1 className="mt-4 text-4xl font-extrabold leading-tight sm:text-5xl">*/}
-        {/*      Ceilings done right, on time, and with care.*/}
-        {/*    </h1>*/}
-        {/*    <p className="mx-auto mt-5 max-w-2xl text-lg text-gray-300">*/}
-        {/*      A trusted subcontractor for general contractors across Arizona,*/}
-        {/*      delivering quality acoustical ceilings with more than 35 years of*/}
-        {/*      experience.*/}
-        {/*    </p>*/}
-        {/*    <Link*/}
-        {/*        href="/contact"*/}
-        {/*        className="mt-8 inline-block rounded-md bg-[#22309a] px-8 py-3 font-semibold text-white transition hover:bg-[#1a2570]"*/}
-        {/*    >*/}
-        {/*      Request a Bid*/}
-        {/*    </Link>*/}
-        {/*  </div>*/}
-        {/*</section>*/}
-
-        <HeroSlider />
+       <HeroSlider />
 
         {/* Services */}
         <section className="mx-auto max-w-6xl px-6 py-20">
@@ -88,7 +65,7 @@ export default function Home() {
         </section>
 
         {/* CTA band */}
-        <section className="bg-[#22309a] text-white">
+        <section className="bg-brand text-white">
           <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-6 py-14 text-center sm:flex-row sm:text-left">
             <div>
               <h2 className="text-2xl font-bold">Have a project coming up?</h2>
@@ -98,7 +75,7 @@ export default function Home() {
             </div>
             <Link
                 href="/contact"
-                className="rounded-md bg-white px-6 py-3 font-semibold text-[#22309a] hover:bg-blue-50"
+                className="rounded-md bg-white px-6 py-3 font-semibold text-brand hover:bg-blue-50"
             >
               Contact Us
             </Link>

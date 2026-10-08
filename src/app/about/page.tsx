@@ -31,7 +31,7 @@ export default function About() {
 
                     <Link
                         href="/contact"
-                        className="mt-8 inline-block rounded-md bg-[#22309a] px-6 py-3 font-semibold text-white transition hover:bg-[#1a2570]"
+                        className="mt-8 inline-block rounded-md bg-brand px-6 py-3 font-semibold text-white transition hover:bg-brand-dark"
                     >
                         Work With Us
                     </Link>
@@ -50,7 +50,7 @@ export default function About() {
 
             {/* Experience highlight */}
             <div className="mt-14 rounded-lg bg-gray-50 p-8 text-center">
-                <p className="text-5xl font-extrabold text-[#22309a]">35+ Years</p>
+                <p className="text-5xl font-extrabold text-brand">35+ Years</p>
                 <p className="mt-2 text-gray-600">of combined experience in acoustical ceilings</p>
             </div>
         </div>
